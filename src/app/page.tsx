@@ -1,69 +1,106 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { Hero } from "@/components/sections/hero";
+import { TokenStats } from "@/components/sections/token-stats";
+import { MemeTicker } from "@/components/sections/meme-ticker";
+import { MemeGallery } from "@/components/sections/meme-gallery";
+import { TrumpQuotes } from "@/components/sections/trump-quotes";
+import { HowToBuy } from "@/components/sections/how-to-buy";
+import { Roadmap } from "@/components/sections/roadmap";
+import { Tokenomics } from "@/components/sections/tokenomics";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+function Starfield() {
+  const [stars, setStars] = useState<{ left: number; top: number; width: number; height: number; duration: number }[]>([]);
+
+  useEffect(() => {
+    const generated = [...Array(200)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      width: Math.random() * 4,
+      height: Math.random() * 4,
+      duration: 2 + Math.random() * 5,
+    }));
+    setStars(generated);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="fixed inset-0 -z-10 opacity-30 pointer-events-none">
+      {stars.map((star, i) => (
+        <div
+          key={i}
+          className="fixed rounded-full bg-white opacity-50"
+          style={{
+            left: `${star.left}%`,
+            top: `${star.top}%`,
+            width: `${star.width}px`,
+            height: `${star.height}px`,
+            animation: `twinkle ${star.duration}s infinite alternate`,
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      ))}
+      <style jsx>{`
+        @keyframes twinkle {
+          from { opacity: 0.2; transform: scale(0.5); }
+          to { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
     </div>
   );
 }
+
+export default function Home() {
+  const [memeCount, setMemeCount] = useState(0);
+
+  // Auto-increment meme counter
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMemeCount((prev) => prev + Math.floor(Math.random() * 5) + 1);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Confetti on buy button click
+  const triggerConfetti = () => {
+    const container = document.getElementById("confetti-container");
+    if (!container) return;
+    const colors = ["#FFD700", "#DC143C", "#FFFFFF"];
+    for (let i = 0; i < 100; i++) {
+      const piece = document.createElement("div");
+      piece.className = "confetti-piece";
+      piece.style.left = Math.random() * 100 + "vw";
+      piece.style.top = "-10vh";
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (2 + Math.random() * 2) + "s";
+      piece.style.animationDelay = Math.random() * 0.5 + "s";
+      container.appendChild(piece);
+      setTimeout(() => piece.remove(), 3000);
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen relative overflow-hidden">
+      <Starfield />
+
+      <Navbar />
+
+      <main className="flex-1 relative pt-20">
+        <Hero />
+        <MemeTicker />
+        <TokenStats />
+        <Tokenomics />
+        <TrumpQuotes />
+        <MemeGallery />
+        <Roadmap />
+        <HowToBuy />
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+
