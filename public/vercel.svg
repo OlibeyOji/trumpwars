@@ -1,1 +1,55 @@
-<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF2B0"></stop>
+      <stop offset=".45" stop-color="#E9B53D"></stop>
+      <stop offset="1" stop-color="#A65B0B"></stop>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#FF4B35"></stop>
+      <stop offset="1" stop-color="#920D16"></stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Imperial crest -->
+  <path d="M400 12 L468 45 L468 112
+           Q400 160 332 112 L332 45 Z" stroke="url(#gold)" stroke-width="4" fill="#101018"></path>
+
+  <path d="M350 91 L350 55 L380 77
+           L400 35 L420 77 L450 55 L450 91 Z" fill="url(#gold)" stroke="#FFE7A0" stroke-width="2"></path>
+
+  <path d="M350 94 H450 L440 106 H360 Z" fill="url(#gold)"></path>
+
+  <text x="400" y="130" text-anchor="middle" fill="#FFE5A0" font-size="17" font-family="Arial" font-weight="bold" letter-spacing="5">T W</text>
+
+  <!-- Side wings -->
+  <g stroke="url(#gold)" stroke-width="4">
+    <path d="M40 151 H185 L150 164 H40"></path>
+    <path d="M55 174 H165 L140 186 H55"></path>
+    <path d="M760 151 H615 L650 164 H760"></path>
+    <path d="M745 174 H635 L660 186 H745"></path>
+  </g>
+
+  <!-- Main wordmark -->
+  <text x="400" y="190" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="76" font-weight="900" letter-spacing="-3" fill="url(#gold)" stroke="#4D2909" stroke-width="2" paint-order="stroke">
+    TRUMPWARS
+  </text>
+
+  <!-- Red accent -->
+  <path d="M105 205 H695 L670 214 H130 Z" fill="url(#red)" filter="url(#glow)"></path>
+
+  <!-- Galactic stars -->
+  <g fill="url(#gold)">
+    <path d="M300 231 l5 12 13 0 -10 8 4 12 -12 -7 -11 7 4 -12 -10 -8 13 0z"></path>
+    <path d="M400 225 l6 15 16 0 -13 10 5 15 -14 -9 -14 9 5 -15 -13 -10 16 0z"></path>
+    <path d="M500 231 l5 12 13 0 -10 8 4 12 -12 -7 -11 7 4 -12 -10 -8 13 0z"></path>
+  </g>
+</svg>
